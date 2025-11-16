@@ -21,6 +21,7 @@ def file_exists(path):
         - авторское решение занимает 27 символов
     """
     return True if os.path.isfile(path) else False
+    # библиотека os обеспечивает взаимодействие с операционной системой, в нашем случае для работы с путями файлов
 
 def combinations(colors, k):
     """ Вернуть список всех сочетаний из списка colors по k
@@ -42,6 +43,7 @@ def combinations(colors, k):
     """
     return list(itertools.combinations(colors, k))
     #вернет список всех возможных комбинаций из k элементов
+    #itertools эффективно работает с иттераторами для комбинаторики, с большим количеством данных без загрузки в память
 
 def days_between(dstr1, dstr2):
     """ Вычисляет количество дней между двумя датами
@@ -58,8 +60,7 @@ def days_between(dstr1, dstr2):
         - авторское решение занимает 67 символов
     """
     return abs((datetime.fromisoformat(dstr2)-datetime.fromisoformat(dstr1)).days)
-    # datetime.fromisoformat преобразует строку в объект datetime, 
-    
+    # datetime.fromisoformat преобразует строку в объект datetime
 
 def get_current_week(day, month, year):
     """ Получить номер недели в году для заданной даты в ISO-формате
@@ -80,6 +81,7 @@ def get_current_week(day, month, year):
     """
     return datetime(year, month, day).isocalendar()[1]
     # datetime() создает объект даты из компонентов, .isocalendar() возвращает кортеж (год, номер недели, день недели) в ISO-формате, второй элемент будет номером недели
+    # ISO это международный формат для дат и времени yyyy-mm-dd
 
 def deg2rad(degree):
     """ Перевести градусы в радианы
@@ -141,6 +143,7 @@ def popular_letters(s):
     """
     return [x for x, _ in collections.Counter(s).most_common(3)]
     # Counter(s) подсчитывает частоту каждого символа, .most_common(3) возвращает 3 самых частых символа с их частотами
+    # collections предоставляет особый тип данных-контейнеров
 
 def json_write(dictionary, file):
     """ Записать в файл file словарь dictionary с отсортированными в алфавитном порядке ключами
@@ -156,6 +159,7 @@ def json_write(dictionary, file):
     with open(file, 'w') as f:
         f.write(json.dumps(dictionary, sort_keys=True))
     # json.dumps() преобразует словарь в JSON-строку, sort_keys=True сортирует ключи в алфавитном(!) порядке
+    # json позвояет работать с джава скрипт
 
 def replacer(text, pattern):
     """ Заменить все слова в строке `text`, которые содержат паттерн `pattern` на `***`, и вернуть результат.
@@ -184,6 +188,7 @@ def replacer(text, pattern):
     # re.sub() заменяет все совпадения на ***
     # re.escape(pattern) выделяет специальные символы в шаблоне
     # \b обозначает границы слов
+    # re ипользуется для поиска и обработки текста
 
 def is_holiday(date, countrycode='RU'):
     """ Проверить, является ли день `date` в стране `countrycode` праздничным с помощью api
@@ -214,3 +219,4 @@ def is_holiday(date, countrycode='RU'):
     response = requests.get(f'https://date.nager.at/api/v3/PublicHolidays/{year}/{countrycode}') #запрос к api праздников, преобразует ответ в список словарей
     holidays = response.json()
     return bool(any(holiday['date'] == date for holiday in holidays)) #проверяет есть ли указанная дата в списке праздников
+    # request необходим для отправки http запросов
